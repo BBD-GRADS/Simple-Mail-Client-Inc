@@ -5,7 +5,8 @@ import { styleReset, AppBar, Toolbar, TextInput, Frame, Button, MenuList, Separa
 import original from 'react95/dist/themes/original';
 import ms_sans_serif from 'react95/dist/fonts/ms_sans_serif.woff2';
 import ms_sans_serif_bold from 'react95/dist/fonts/ms_sans_serif_bold.woff2';
-import { MailWindow } from './components/mail-window';
+import { Home } from './scenes/home';
+import { Login } from './scenes/login';
 
 
 const GlobalStyles = createGlobalStyle`
@@ -27,62 +28,33 @@ const GlobalStyles = createGlobalStyle`
   }
 `;
 
-function App() {
- 
-  const [showMail, setShowMail] = React.useState(false);
+export const App = () => {
+
+  const [hasAuth, setHasAuth] = React.useState(false);
+
+  console.log(hasAuth)
 
   return (
-      <><GlobalStyles /><ThemeProvider theme={original}>
-          <nav>
-              <AppBar style={{ zIndex: 3 }}>
-                  <Toolbar style={{ justifyContent: 'space-between' }}>
-                      <Button
-                        onClick={() => setShowMail(true)}
-                      >Compose Mail</Button>
-                      <TextInput
-                          placeholder="Search..."
-                          width={150}
-                          style={{ marginLeft: 'auto' }}
-                      />
-                  </Toolbar>
-              </AppBar>
-          </nav>
-          <main>
-              <div>
-                <Frame
-                    variant='outside'
-                    shadow
-                    style={{lineHeight: '1.5', width: '30vw'  , top: '5vh', height: '80vh', margin: '1.25vw', padding: '1vw'}}
-                >
-                 <h1>Your Mail</h1>
-                 <MenuList style={{width: '100%'}}>
-                  <MenuListItem>Item 1</MenuListItem>
-                  <Separator />
-                  <MenuListItem>Item 2</MenuListItem>
-                  <Separator />
-                  <MenuListItem>Item 3</MenuListItem>
-                </MenuList> 
-                </Frame>
+      <>
+      <GlobalStyles />
+      <ThemeProvider theme={original}>
 
-                <Frame
-                    variant='outside'
-                    shadow
-                    style={{lineHeight: '1.5', width: '60vw'  , top: '5vh', height: '80vh', margin: '1.25vw'}}
-                >
-                 <h1 style={{ padding: '0.5rem'}}>Message Content</h1>    
-                   
-                </Frame>
+      {hasAuth && 
+        (
+        <Home
+          logoutFunction={() => setHasAuth(false)}
+        />
+        )
+      }
 
-              </div>
-          </main>
-          {showMail && (
-          <MailWindow
-            setShowMail={setShowMail}
-          />
-          )}
-          
+      {!hasAuth && 
+        (
+        <Login
+          logoutFunction={() => setHasAuth(false)}
+        />
+        )
+      }
+
       </ThemeProvider></>
   );
 }
-
-export default App;

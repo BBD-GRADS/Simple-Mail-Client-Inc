@@ -42,7 +42,7 @@ const Wrapper = styled.div`
   }
 }`;
 
-export const MailWindow = (props) => {
+export const InboxWindow = (props) => {
     return (
       <Wrapper>
         <Window className='window' style={{position: 'absolute', width: '60vw', left: '20vw', height: '70vh', top: '15vh'}}>
