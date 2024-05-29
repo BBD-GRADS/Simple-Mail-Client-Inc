@@ -22,9 +22,9 @@ jobs:
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v4.0.1
         with:
-          role-to-assume: ${{ vars.AWS_DEPLOY_ROLE }}
-          aws-region: ${{ vars.AWS_REGION }}
-
+          role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
+          aws-region: 'eu-west-1'
+          
       - name: Install node
         uses: actions/setup-node@v4
         with:
