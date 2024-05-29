@@ -35,4 +35,4 @@ jobs:
 
       - name: Deploy Infrastructure
         working-directory: iac
-        run: cdk deploy --require-approval never
+        run: pwd
