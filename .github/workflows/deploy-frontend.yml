@@ -52,6 +52,4 @@ jobs:
 
       - name: Upload static files to S3
         working-directory: client/build
-        run: |
-          pwd
-          aws --version
+        run: aws s3 sync . s3://${{ secrets.BUCKET_NAME }} --delete
