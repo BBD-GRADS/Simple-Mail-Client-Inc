@@ -34,4 +34,5 @@ jobs:
         run: npm install -g aws-cdk
 
       - name: Deploy Infrastructure
+        working-directory: iac
         run: cdk deploy --require-approval never
