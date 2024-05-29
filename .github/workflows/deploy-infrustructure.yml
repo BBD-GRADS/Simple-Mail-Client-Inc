@@ -35,4 +35,6 @@ jobs:
 
       - name: Deploy Infrastructure
         working-directory: iac
-        run: pwd
+        run: |
+          npm ci
+          cdk deploy --require-approval never
