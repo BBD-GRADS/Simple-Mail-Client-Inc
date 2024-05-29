@@ -39,7 +39,7 @@ jobs:
         working-directory: client
         run: |
           npm ci
-          npm run install
+          npm install
 
       - name: Build static files
         working-directory: client
