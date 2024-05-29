@@ -1,0 +1,54 @@
+name: Deploy Frontend
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'client/**'
+  workflow_dispatch:
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ vars.AWS_DEPLOY_ROLE }}
+          aws-region: 'eu-west-1'
+
+      - name: Install node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        working-directory: client
+        run: npm ci
+
+
+      - name: Install npm dependencies
+        working-directory: client
+        run: |
+          npm ci
+          npm run install
+
+      - name: Build static files
+        working-directory: client
+        run: |
+          npm ci
+          npm run build
+
+      - name: Upload static files to S3
+        working-directory: client/build
+        run: |
+          pwd
+          aws --version
