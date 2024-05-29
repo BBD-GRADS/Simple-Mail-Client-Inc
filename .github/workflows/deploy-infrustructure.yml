@@ -3,7 +3,7 @@ name: Deploy Infrastructure
 on:
   push:
     branches:
-      - main
+      - lesedi/feature/workflows-for-ica
     paths:
       - 'iac/**'
   workflow_dispatch:
