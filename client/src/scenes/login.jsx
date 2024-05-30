@@ -45,7 +45,7 @@ export const Login = (props) => {
           <p>authenticate with Google.</p>
           <br />
           <Button>Authenticate</Button>
-          <Hourglass size={32} style={{ margin: 20 }} />
+          {/* <Hourglass size={32} style={{ margin: 20 }} /> */}
         </WindowContent>
       </Window>
       <p>Proudly sponsored by Internet Explorer™️</p>

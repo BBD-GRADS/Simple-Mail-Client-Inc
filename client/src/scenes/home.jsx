@@ -8,6 +8,8 @@ import { ViewMail } from '../components/view-mail';
 export const Home = (props) => {
 
     const [showMail, setShowMail] = React.useState(false);
+
+    const [viewingEmail, setViewingEmail] = React.useState(null);
     
     return (
             <><nav>
@@ -23,9 +25,15 @@ export const Home = (props) => {
             </AppBar>
         </nav>
         <main style={{ width: '100vw', display: 'flex', flexDirection: 'row', height: '90vh', top: '5vh', position: 'absolute' }}>
-                <YourMailWindow />
+                <YourMailWindow
+                  onClick={(val) => {
+                    setViewingEmail(val);
+                  }
+                }
+                />
                 <ViewMail
-                    sender={'USERNAME1'} />
+                  {...viewingEmail}
+                />
         </main>
         {showMail && (
         <InboxWindow
