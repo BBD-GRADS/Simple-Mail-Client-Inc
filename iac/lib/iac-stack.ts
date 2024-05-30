@@ -31,8 +31,8 @@ export class IacStack extends cdk.Stack {
       allowAllOutbound: false,
     });
 
-    securityGrouup.addIngressRule(ec2.Peer.anyIpv4(), ec2.Port.tcp(1433));
-    securityGrouup.addEgressRule(ec2.Peer.anyIpv4(), ec2.Port.tcp(1433));
+    securityGrouup.addIngressRule(ec2.Peer.anyIpv4(), ec2.Port.tcp(5432));
+    securityGrouup.addEgressRule(ec2.Peer.anyIpv4(), ec2.Port.tcp(5432));
 
     const dbInstance = new rds.DatabaseInstance(
       this,
