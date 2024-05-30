@@ -3,11 +3,12 @@ const { json } = require("express");
 const emailRoutes = require("./routes/emailRoutes");
 const authenticateSession = require("./middleware/authMiddleware");
 const { port } = require("./config");
+const bodyParser = require("body-parser");
 
 const app = express();
 
 // Middlewares
-app.use(json());
+app.use(bodyParser.json({ limit: "10mb" }));
 
 // Routes
 app.use("/email", authenticateSession, emailRoutes);

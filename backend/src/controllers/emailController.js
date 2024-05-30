@@ -24,8 +24,28 @@ async function getMailbox(req, res) {
   }
 }
 
+async function getSent(req, res) {
+  try {
+    const { amount } = req.query;
+    const email = req.user.email;
+    if (!email) {
+      return res.status(400).json({ error: "Email is required" });
+    }
+
+    const emails = await sentEmailDAO.getEmails(
+      email,
+      amount ? parseInt(amount, 10) : undefined
+    );
+
+    return res.status(200).json(emails);
+  } catch (error) {
+    console.error("Error fetching emails:", error);
+    return res.status(500).json({ error: "Internal Server Error" });
+  }
+}
+
 async function fetchEmailFromS3(req, res) {
-  const { email } = req.user.email;
+  const email = req.user.email;
   if (!email) {
     return res.status(400).json({ error: "Email is required" });
   }
@@ -71,6 +91,53 @@ async function fetchEmailFromS3(req, res) {
   }
 }
 
+async function fetchSentEmailFromS3(req, res) {
+  const email = req.user.email;
+  if (!email) {
+    return res.status(400).json({ error: "Email is required" });
+  }
+  const { s3EmailId } = req.query;
+
+  if (!s3EmailId) {
+    return res.status(400).json({ error: "s3EmailId is required" });
+  }
+
+  const mailSender = await sentEmailDAO.getSender(s3EmailId);
+
+  if (mailSender !== email) {
+    return res.status(403).json({ error: "Unauthorized" });
+  }
+
+  let objectPath = s3EmailId;
+  if (awsConfig.s3MailPrefix) {
+    objectPath = `sent/${s3EmailId}`;
+  }
+
+  const params = {
+    Bucket: awsConfig.s3BucketName,
+    Key: objectPath,
+  };
+
+  try {
+    const s3 = new aws.S3();
+
+    const data = await s3.getObject(params).promise();
+    const emailContent = JSON.parse(data.Body.toString("utf-8"));
+
+    res.set({
+      "Content-Disposition": `attachment; filename="${s3EmailId}.json"`,
+      "Content-Type": "application/json",
+    });
+    res.json(emailContent);
+  } catch (error) {
+    console.error("Error fetching email from S3:", error);
+    if (error.code === "NoSuchKey") {
+      return res.status(404).json({ error: "Email not found" });
+    }
+    return res.status(500).json({ error: "Internal Server Error" });
+  }
+}
+
 async function sendEmail(req, res) {
   const { to, subject, text, html, attachments } = req.body;
 
@@ -101,20 +168,22 @@ async function sendEmail(req, res) {
 
   try {
     const info = await transporter.sendMail(mailOptions);
-    console.log("Message sent: %s", info.messageId);
+    const messageId = info.messageId.match(/(?<=<)([^@]+)/)[0];
+
+    console.log("Message sent: %s", messageId);
 
     // Store the sent email in S3
     const s3 = new aws.S3();
     const s3Params = {
       Bucket: awsConfig.s3BucketName,
-      Key: `sent/${info.messageId}`,
+      Key: `sent/${messageId}`,
       Body: JSON.stringify(mailOptions),
     };
     await s3.putObject(s3Params).promise();
 
     // Save metadata in the database
     await sentEmailDAO.insert({
-      s3EmailId: info.messageId,
+      s3EmailId: messageId,
       recipient: to,
       sender: mailOptions.from,
       sentTime: new Date().toISOString(),
@@ -124,7 +193,7 @@ async function sendEmail(req, res) {
 
     return res
       .status(200)
-      .json({ message: "Email sent", messageId: info.messageId });
+      .json({ message: "Email sent", messageId: messageId });
   } catch (error) {
     console.error("Error sending email:", error);
     return res.status(500).json({ error: "Internal Server Error" });
@@ -133,6 +202,8 @@ async function sendEmail(req, res) {
 
 module.exports = {
   getMailbox,
+  getSent,
   fetchEmailFromS3,
   sendEmail,
+  fetchSentEmailFromS3,
 };

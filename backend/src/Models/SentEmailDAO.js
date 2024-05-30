@@ -44,6 +44,14 @@ const sentEmailDAO = {
     const { s3_email_id, ...rest } = rows[0];
     return sentEmail(s3_email_id, ...Object.values(rest));
   },
+  async getSender(emailId) {
+    const { rows } = await pool.query(
+      `SELECT sender FROM ${tableName} WHERE s3_email_id = $1;`,
+      [emailId]
+    );
+    if (rows.length === 0) return null;
+    return rows[0].sender;
+  },
 };
 
 module.exports = sentEmailDAO;
