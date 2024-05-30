@@ -4,9 +4,6 @@ const config = {
   // Server port
   port: process.env.PORT || 8080,
 
-  // Frontend URL
-  frontendUrl: process.env.FRONTEND_URL,
-
   // Database connection settings
   db: {
     user: process.env.DB_USER,
@@ -15,6 +12,8 @@ const config = {
     password: process.env.DB_PASSWORD,
     port: process.env.DB_PORT || 5432,
   },
+
+  frontendUrl: process.env.FRONTEND_URL,
 
   // AWS configuration
   awsConfig: {
