@@ -1,60 +1,31 @@
-import React from 'react';
-import { createGlobalStyle, ThemeProvider } from 'styled-components';
-import { styleReset, AppBar, Toolbar, TextInput, Frame, Button, MenuList, Separator, MenuListItem} from 'react95';
+import React from "react";
+import { Amplify } from "aws-amplify";
+import { Authenticator } from "@aws-amplify/ui-react";
+import "@aws-amplify/ui-react/styles.css";
+import AWSConfig from "./aws-exports";
+import { Home } from "./scenes/home";
 
-import original from 'react95/dist/themes/original';
-import ms_sans_serif from 'react95/dist/fonts/ms_sans_serif.woff2';
-import ms_sans_serif_bold from 'react95/dist/fonts/ms_sans_serif_bold.woff2';
-import { Home } from './scenes/home';
-import { Login } from './scenes/login';
+Amplify.configure(AWSConfig);
 
+function App({ signOut, user }) {
+  return <Home logoutFunction={signOut} user={user} />;
+}
 
-const GlobalStyles = createGlobalStyle`
-  ${styleReset}
-  @font-face {
-    font-family: 'ms_sans_serif';
-    src: url('${ms_sans_serif}') format('woff2');
-    font-weight: 400;
-    font-style: normal
-  }
-  @font-face {
-    font-family: 'ms_sans_serif';
-    src: url('${ms_sans_serif_bold}') format('woff2');
-    font-weight: bold;
-    font-style: normal
-  }
-  body {
-    font-family: 'ms_sans_serif';
-  }
-`;
+const formFields = {
+  signUp: {
+    email: {
+      label: "Backup email",
+      placeholder: "Enter your backup email",
+      required: true,
+      type: "email",
+    },
+  },
+};
 
-export const App = () => {
-
-  const [hasAuth, setHasAuth] = React.useState(false);
-
-  console.log(hasAuth)
-
+export default function AppWrapper() {
   return (
-      <>
-      <GlobalStyles />
-      <ThemeProvider theme={original}>
-
-      {hasAuth && 
-        (
-        <Home
-          logoutFunction={() => setHasAuth(false)}
-        />
-        )
-      }
-
-      {!hasAuth && 
-        (
-        <Login
-          logoutFunction={() => setHasAuth(false)}
-        />
-        )
-      }
-
-      </ThemeProvider></>
+    <Authenticator formFields={formFields} signUpAttributes={["username"]}>
+      {({ signOut, user }) => <App signOut={signOut} user={user} />}
+    </Authenticator>
   );
 }
