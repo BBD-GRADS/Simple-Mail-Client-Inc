@@ -38,8 +38,8 @@ export class IacStack extends cdk.Stack {
       this,
       `${appName}-db-instance`,
       {
-        engine: rds.DatabaseInstanceEngine.sqlServerEx({
-          version: rds.SqlServerEngineVersion.VER_16,
+        engine: rds.DatabaseInstanceEngine.postgres({
+          version: rds.PostgresEngineVersion.VER_16_1,
         }),
         instanceType: ec2.InstanceType.of(
           ec2.InstanceClass.T3,
@@ -52,7 +52,7 @@ export class IacStack extends cdk.Stack {
         allocatedStorage: 20,
         publiclyAccessible: true,
         deletionProtection: false,
-        credentials: rds.Credentials.fromGeneratedSecret("admin", {
+        credentials: rds.Credentials.fromGeneratedSecret("db_admin", {
           secretName: `${appName}-db-secret`,
         }),
         securityGroups: [securityGrouup],
