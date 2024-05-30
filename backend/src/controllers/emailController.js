@@ -1,9 +1,11 @@
 const jwt = require("jsonwebtoken");
 const receivedEmailDAO = require("../Models/ReceivedEmailDAO");
+const sentEmailDAO = require("../Models/SentEmailDAO");
 const { aws, transporter } = require("../config/aws");
 const { awsConfig } = require("../config");
 
-async function getEmails(req, res) {
+async function getMailbox(req, res) {
+  //TODO check user email
   try {
     const { email, amount } = req.query;
     if (!email) {
@@ -73,27 +75,38 @@ async function sendEmail(req, res) {
     to,
     subject,
     text,
-    html, // If you have HTML content, otherwise remove this line
+    html,
     attachments:
       attachments &&
       attachments.map((attachment) => ({
         filename: attachment.filename,
         content: attachment.content, //base64
       })),
-    ses: {
-      // Optional extra arguments for SendRawEmail
-      // Tags: [
-      //   {
-      //     Name: "tag_name",
-      //     Value: "tag_value",
-      //   },
-      // ],
-    },
   };
-  //TODO save in sent db and s3
+
   try {
     const info = await transporter.sendMail(mailOptions);
     console.log("Message sent: %s", info.messageId);
+
+    // Store the sent email in S3
+    const s3 = new aws.S3();
+    const s3Params = {
+      Bucket: awsConfig.s3BucketName,
+      Key: `sent/${info.messageId}`,
+      Body: JSON.stringify(mailOptions),
+    };
+    await s3.putObject(s3Params).promise();
+
+    // Save metadata in the database
+    await sentEmailDAO.insert({
+      s3EmailId: info.messageId,
+      recipient: to,
+      sender: mailOptions.from,
+      sentTime: new Date().toISOString(),
+      hasAttachments: !!attachments && attachments.length > 0,
+      subject,
+    });
+
     return res
       .status(200)
       .json({ message: "Email sent", messageId: info.messageId });
@@ -104,7 +117,7 @@ async function sendEmail(req, res) {
 }
 
 module.exports = {
-  getEmails,
+  getMailbox,
   fetchEmailFromS3,
   sendEmail,
 };
