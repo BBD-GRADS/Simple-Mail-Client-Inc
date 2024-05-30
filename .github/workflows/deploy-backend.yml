@@ -1,0 +1,54 @@
+name: Deploy Backend
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'api/**'
+  workflow_dispatch:
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4.0.1
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
+          aws-region: 'eu-west-1'
+          
+      - name: Install node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        working-directory: api
+        run: npm ci
+
+      - name: Package artifact
+        working-directory: api
+        run: |
+          mkdir dist
+          zip -r dist/api.zip *
+
+      - name: Beanstalk Deploy for app
+        uses: einaregilsson/beanstalk-deploy@v22
+        with:
+          aws_access_key: ${{ env.AWS_ACCESS_KEY_ID }}
+          aws_secret_key: ${{ env.AWS_SECRET_ACCESS_KEY }}
+          existing_bucket_name: ${{ vars.DEPLOY_BUCKET }}
+          application_name: ${{ vars.WEB_APP_NAME }}
+          environment_name: ${{ vars.WEB_APP_ENV_NAME }}
+          region: ${{ vars.AWS_REGION }}
+          version_label: ${{ github.run_id }}
+          deployment_package: api/dist/api.zip
+          wait_for_environment_recovery: 60
