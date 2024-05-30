@@ -9,7 +9,7 @@ app.get('/check', function(req, res){
    res.send("Running...");
 });
 
-app.get('/test', function(){
+app.get('/test', function(req, res){
    res.send(process.env.Test );
 });
 
