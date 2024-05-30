@@ -23,6 +23,8 @@ const config = {
     region: process.env.AWS_REGION,
     s3BucketName: process.env.S3_BUCKET_NAME,
     s3MailPrefix: process.env.S3_MAIL_PREFIX,
+    cognitoClientId: process.env.COGNITO_CLIENT_ID,
+    cognitoUserPoolId: process.env.COGNITO_USER_POOL_ID,
   },
 };
 

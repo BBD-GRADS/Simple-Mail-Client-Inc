@@ -17,7 +17,7 @@ app.use(json());
 //   res.json({ message: "Authenticated!", user: req.user });
 // });
 
-app.use("/email", emailRoutes);
+app.use("/email", authenticateSession, emailRoutes);
 
 app.get("/", (req, res) => {
   res.status(200).json({ message: "Best API EU" });

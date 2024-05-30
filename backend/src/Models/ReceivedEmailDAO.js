@@ -21,6 +21,14 @@ const receivedEmailDAO = {
       )
     );
   },
+  async getReceiver(emailId) {
+    const { rows } = await pool.query(
+      `SELECT recipient FROM ${tableName} WHERE s3_email_id = $1;`,
+      [emailId]
+    );
+    if (rows.length === 0) return null;
+    return rows[0].recipient;
+  },
 };
 
 module.exports = receivedEmailDAO;

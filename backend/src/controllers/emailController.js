@@ -5,9 +5,9 @@ const { aws, transporter } = require("../config/aws");
 const { awsConfig } = require("../config");
 
 async function getMailbox(req, res) {
-  //TODO check user email
   try {
-    const { email, amount } = req.query;
+    const { amount } = req.query;
+    const email = req.user.email;
     if (!email) {
       return res.status(400).json({ error: "Email is required" });
     }
@@ -25,8 +25,18 @@ async function getMailbox(req, res) {
 }
 
 async function fetchEmailFromS3(req, res) {
-  //TODO check if user email
+  const { email } = req.user.email;
+  if (!email) {
+    return res.status(400).json({ error: "Email is required" });
+  }
   const { s3EmailId } = req.query;
+
+  mailRecipient = await receivedEmailDAO.getReceiver(s3EmailId);
+
+  if (mailRecipient !== email) {
+    return res.status(403).json({ error: "Unauthorized" });
+  }
+
   if (!s3EmailId) {
     return res.status(400).json({ error: "s3EmailId is required" });
   }
@@ -64,6 +74,11 @@ async function fetchEmailFromS3(req, res) {
 async function sendEmail(req, res) {
   const { to, subject, text, html, attachments } = req.body;
 
+  const email = req.user.email;
+  if (!email) {
+    return res.status(400).json({ error: "Email is required" });
+  }
+
   if (!to || !subject || !text) {
     return res
       .status(400)
@@ -71,7 +86,7 @@ async function sendEmail(req, res) {
   }
 
   const mailOptions = {
-    from: "test@email95.net", //TODO get email from user check if in db ,check what happens if fake email
+    from: email,
     to,
     subject,
     text,
