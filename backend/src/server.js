@@ -5,6 +5,8 @@ const authenticateSession = require("./middleware/authMiddleware");
 const { port, frontendUrl } = require("./config");
 const bodyParser = require("body-parser");
 const cors = require("cors");
+const path = require('path');
+
 
 const app = express();
 
@@ -20,9 +22,13 @@ app.use(cors(corsOptions));
 // Routes
 app.use("/email", authenticateSession, emailRoutes);
 
+app.use(express.static(path.join(__dirname, "..", "../client")));
+ 
 app.get("/", (req, res) => {
-  res.status(200).json({ message: "Best API EU" });
+  res.sendFile(path.join(__dirname, "..", "../client/public/index.html"));
 });
+
+
 
 module.exports = app;
 
