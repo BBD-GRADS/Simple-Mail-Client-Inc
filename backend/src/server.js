@@ -1,10 +1,8 @@
 const express = require("express");
 const { json } = require("express");
-const authRoutes = require("./routes/authRoutes");
 const emailRoutes = require("./routes/emailRoutes");
 const authenticateSession = require("./middleware/authMiddleware");
 const { port } = require("./config");
-const path = require("path");
 
 const app = express();
 
@@ -12,11 +10,6 @@ const app = express();
 app.use(json());
 
 // Routes
-//app.use("/auth", authRoutes);
-// app.get("/test", authenticateSession, (req, res) => {
-//   res.json({ message: "Authenticated!", user: req.user });
-// });
-
 app.use("/email", authenticateSession, emailRoutes);
 
 app.get("/", (req, res) => {
