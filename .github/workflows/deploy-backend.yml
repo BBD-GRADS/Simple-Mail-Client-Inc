@@ -5,7 +5,7 @@ on:
     branches:
       - main
     paths:
-      - 'api/**'
+      - 'backend/**'
   workflow_dispatch:
 
 permissions:
@@ -31,14 +31,14 @@ jobs:
           node-version: '20'
 
       - name: Install dependencies
-        working-directory: api
+        working-directory: backend
         run: npm ci
 
       - name: Package artifact
-        working-directory: api
+        working-directory: backend
         run: |
           mkdir dist
-          zip -r dist/api.zip *
+          zip -r dist/backend.zip *
 
       - name: Beanstalk Deploy for app
         uses: einaregilsson/beanstalk-deploy@v22
@@ -50,5 +50,5 @@ jobs:
           environment_name: ${{ vars.WEB_APP_ENV_NAME }}
           region: ${{ vars.AWS_REGION }}
           version_label: ${{ github.run_id }}
-          deployment_package: api/dist/api.zip
+          deployment_package: backend/dist/backend.zip
           wait_for_environment_recovery: 60
