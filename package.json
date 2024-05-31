@@ -1,6 +1,0 @@
-{
-  "dependencies": {
-    "aws-jwt-verify": "^4.0.1",
-    "mailparser": "^3.7.1"
-  }
-}

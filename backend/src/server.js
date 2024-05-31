@@ -5,8 +5,6 @@ const authenticateSession = require("./middleware/authMiddleware");
 const { port, frontendUrl } = require("./config");
 const bodyParser = require("body-parser");
 const cors = require("cors");
-const path = require('path');
-
 
 const app = express();
 
@@ -15,20 +13,16 @@ app.use(bodyParser.json({ limit: "10mb" }));
 
 const corsOptions = {
   origin: frontendUrl,
-  credentials: true, // to allow cookies to be sent
+  credentials: true,
 };
 app.use(cors(corsOptions));
 
 // Routes
 app.use("/email", authenticateSession, emailRoutes);
 
-app.use(express.static(path.join(__dirname, "..", "../client")));
- 
 app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "..", "../client/public/index.html"));
+  res.status(200).json({ message: "Best API EU" });
 });
-
-
 
 module.exports = app;
 
