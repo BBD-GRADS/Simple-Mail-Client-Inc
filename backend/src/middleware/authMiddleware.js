@@ -9,7 +9,7 @@ const verifier = CognitoJwtVerifier.create({
 
 const authenticateSession = async (req, res, next) => {
   try {
-    const token = req?.headers?.authorization.split(" ")[1];
+    const token = req?.headers?.authorization?.split(" ")[1];
     const payload = await verifier.verify(token);
     req.user = payload;
     next(); // Pass control to the next middleware function
