@@ -16,7 +16,7 @@ export const Email = (props) => {
 
   return (
     <>
-      <div testid={props.sender} onClick={() => {
+      <div testid={props.sender} style={{overflow: 'hidden'}} onClick={() => {
         handleClick();
         }}>
         <h2>{props.sender}</h2>

@@ -16,7 +16,7 @@ export const useMailList = (onClick) => {
         const mails = await getEmailMailbox();
         const mailL = mails.map(mail => (
           <Email
-            //key={mail.id} // Assuming each email has a unique id
+            key={mails.indexOf(mail)} // Assuming each email has a unique id
             sender={mail.sender}
             subject={mail.subject}
             id={mail.s3EmailId}

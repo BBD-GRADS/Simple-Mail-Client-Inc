@@ -5,7 +5,7 @@ import { styleReset, AppBar, Toolbar, TextInput, Frame, Button, MenuList, Separa
 import original from 'react95/dist/themes/original';
 import ms_sans_serif from 'react95/dist/fonts/ms_sans_serif.woff2';
 import ms_sans_serif_bold from 'react95/dist/fonts/ms_sans_serif_bold.woff2';
-import { InboxWindow } from '../components/inbox-window';
+import { ComposeEmailWindow } from '../components/inbox-window';
 import { YourMailWindow } from '../components/your-mail';
 import { ViewMail } from '../components/view-mail';
 

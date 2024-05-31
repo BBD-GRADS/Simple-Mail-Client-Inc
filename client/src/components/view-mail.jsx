@@ -1,4 +1,4 @@
-import {Frame, GroupBox, Separator} from 'react95';
+import {Frame, GroupBox, Hourglass, Separator} from 'react95';
 
 import React from 'react';
 import useSingleEmail from '../hooks/useEmailSingle';
@@ -6,8 +6,6 @@ import useSingleEmail from '../hooks/useEmailSingle';
 export const ViewMail = (props) => {
   
     const {data, loading, error} = useSingleEmail(props.id);
-
-    console.log(data, loading, error);
   
     return (
       <div
@@ -21,7 +19,13 @@ export const ViewMail = (props) => {
              <GroupBox label={props.sender}>
               <h2> {props.subject} </h2>
               <Separator/>
-              <p>{data}</p>
+              {
+            loading && 
+            (<Hourglass/>)}
+            
+            {
+            !loading && 
+            (<p>{data?.text}</p>)}
              </GroupBox>
           </Frame>
         </div>

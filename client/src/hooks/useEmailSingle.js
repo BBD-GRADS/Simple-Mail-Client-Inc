@@ -1,3 +1,5 @@
+import { MailParser } from 'mailparser';
+import PostalMime from 'postal-mime';
 import { useState, useEffect } from 'react';
 import { getSingleEmail } from '../resolvers';
 
@@ -11,7 +13,10 @@ const useSingleEmail = (s3EmailId) => {
       try {
         setLoading(true);
         const data = await getSingleEmail(s3EmailId);
-        setEmailContent(data);
+
+        const message = await PostalMime.parse(data);
+
+        setEmailContent(message);
       } catch (error) {
         setError(error);
       } finally {

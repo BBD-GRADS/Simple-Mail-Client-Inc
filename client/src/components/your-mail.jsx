@@ -16,8 +16,7 @@ export const YourMailWindow = (props) => {
         style={{width: '30%', height: '94%', padding: '2%'}}
         >
           <Frame
-              variant='outside'EW EMAIL
-              
+              variant='outside'
               shadow
               style={{lineHeight: '1.5', width: '100%', height: '100%', padding: '5%'}}
           >

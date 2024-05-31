@@ -1,7 +1,7 @@
 import React from 'react';
 import { AppBar, Toolbar,Button} from 'react95';
 
-import { InboxWindow } from '../components/inbox-window';
+import { ComposeEmailWindow } from '../components/inbox-window';
 import { YourMailWindow } from '../components/your-mail';
 import { ViewMail } from '../components/view-mail';
 
@@ -19,7 +19,7 @@ export const Home = (props) => {
                         onClick={() => setShowMail(true)}
                     >Compose Mail</Button>
                     <Button
-                        onClick={() => {props.logoutFunction(); console.log(props);}}
+                        onClick={() => {props.logoutFunction()}}
                     >Logout</Button>
                 </Toolbar>
             </AppBar>
@@ -36,7 +36,7 @@ export const Home = (props) => {
                 />
         </main>
         {showMail && (
-        <InboxWindow
+        <ComposeEmailWindow
             setShowMail={setShowMail}
         />
         )}
