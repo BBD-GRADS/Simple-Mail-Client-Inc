@@ -37,28 +37,18 @@ jobs:
         working-directory: client
         run: npm ci
 
-      - name: Install npm dependencies
-        working-directory: client
-        run: |
-          npm ci
-          npm install
-
       - name: Create env file
         working-directory: client
         run: |
-          touch .env
-          REACT_APP_AWS_PROJECT_REGION=${{ secrets.REACT_APP_AWS_PROJECT_REGION }} >> .env
-          REACT_APP_AWS_COGNITO_IDENTITY_POOL_ID=${{ secrets.REACT_APP_AWS_COGNITO_IDENTITY_POOL_ID }} >> .env
-          REACT_APP_AWS_COGNITO_REGION=${{ secrets.REACT_APP_AWS_COGNITO_REGION }} >> .env
-          REACT_APP_AWS_USER_POOLS_ID=${{ secrets.REACT_APP_AWS_USER_POOLS_ID }} >> .env
-          REACT_APP_AWS_USER_POOLS_WEB_CLIENT_ID=${{ secrets.REACT_APP_AWS_USER_POOLS_WEB_CLIENT_ID }} >> .env
-          cat .env
+          echo "REACT_APP_AWS_PROJECT_REGION=${{ secrets.REACT_APP_AWS_PROJECT_REGION }}" > .env
+          echo "REACT_APP_AWS_COGNITO_IDENTITY_POOL_ID=${{ secrets.REACT_APP_AWS_COGNITO_IDENTITY_POOL_ID }}" >> .env
+          echo "REACT_APP_AWS_COGNITO_REGION=${{ secrets.REACT_APP_AWS_COGNITO_REGION }}" >> .env
+          echo "REACT_APP_AWS_USER_POOLS_ID=${{ secrets.REACT_APP_AWS_USER_POOLS_ID }}" >> .env
+          echo "REACT_APP_AWS_USER_POOLS_WEB_CLIENT_ID=${{ secrets.REACT_APP_AWS_USER_POOLS_WEB_CLIENT_ID }}" >> .env
 
       - name: Build static files
         working-directory: client
-        run: |
-          npm ci
-          npm run build
+        run: npm run build
 
       - name: Upload static files to S3
         working-directory: client/build
