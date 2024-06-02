@@ -5,7 +5,7 @@ on:
     branches:
       - main
     paths:
-      - 'client/**'
+      - "client/**"
   workflow_dispatch:
 
 env:
@@ -26,23 +26,33 @@ jobs:
         uses: aws-actions/configure-aws-credentials@v4
         with:
           role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
-          aws-region: 'eu-west-1'
+          aws-region: "eu-west-1"
 
       - name: Install node
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: "20"
 
       - name: Install dependencies
         working-directory: client
         run: npm ci
-
 
       - name: Install npm dependencies
         working-directory: client
         run: |
           npm ci
           npm install
+
+      - name: Create env file
+        working-directory: client
+        run: |
+          touch .env
+          REACT_APP_AWS_PROJECT_REGION=${{ secrets.REACT_APP_AWS_PROJECT_REGION }} >> .env
+          REACT_APP_AWS_COGNITO_IDENTITY_POOL_ID=${{ secrets.REACT_APP_AWS_COGNITO_IDENTITY_POOL_ID }} >> .env
+          REACT_APP_AWS_COGNITO_REGION=${{ secrets.REACT_APP_AWS_COGNITO_REGION }} >> .env
+          REACT_APP_AWS_USER_POOLS_ID=${{ secrets.REACT_APP_AWS_USER_POOLS_ID }} >> .env
+          REACT_APP_AWS_USER_POOLS_WEB_CLIENT_ID=${{ secrets.REACT_APP_AWS_USER_POOLS_WEB_CLIENT_ID }} >> .env
+          cat .env
 
       - name: Build static files
         working-directory: client
