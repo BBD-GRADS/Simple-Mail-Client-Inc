@@ -7,7 +7,7 @@ const { awsConfig } = require("../config");
 async function getMailbox(req, res) {
   try {
     const { amount } = req.query;
-    const email = req.user.email;
+    const email = req.user["cognito:username"];
     if (!email) {
       return res.status(400).json({ error: "Email is required" });
     }
@@ -27,7 +27,7 @@ async function getMailbox(req, res) {
 async function getSent(req, res) {
   try {
     const { amount } = req.query;
-    const email = req.user.email;
+    const email = req.user["cognito:username"];
     if (!email) {
       return res.status(400).json({ error: "Email is required" });
     }
@@ -45,7 +45,7 @@ async function getSent(req, res) {
 }
 
 async function fetchEmailFromS3(req, res) {
-  const email = req.user.email;
+  const email = req.user["cognito:username"];
   if (!email) {
     return res.status(400).json({ error: "Email is required" });
   }
@@ -92,7 +92,7 @@ async function fetchEmailFromS3(req, res) {
 }
 
 async function fetchSentEmailFromS3(req, res) {
-  const email = req.user.email;
+  const email = req.user["cognito:username"];
   if (!email) {
     return res.status(400).json({ error: "Email is required" });
   }
@@ -141,7 +141,7 @@ async function fetchSentEmailFromS3(req, res) {
 async function sendEmail(req, res) {
   const { to, subject, text, html, attachments } = req.body;
 
-  const email = req.user.email;
+  const email = req.user["cognito:username"];
   if (!email) {
     return res.status(400).json({ error: "Email is required" });
   }
