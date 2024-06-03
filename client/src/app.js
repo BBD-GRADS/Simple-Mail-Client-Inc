@@ -17,7 +17,19 @@ function App({ signOut, user }) {
 Amplify.configure(AWSConfig);
 
 const formFields = {
+  signIn: {
+    username: {
+      label: "Email",
+      placeholder: "Enter your email95.net address",
+      type: "email",
+    },
+  },
   signUp: {
+    username: {
+      label: "email95.net email address",
+      placeholder: "your_username@email95.net",
+      type: "email",
+    },
     email: {
       label: "Backup email",
       placeholder: "Enter your backup email",
