@@ -1,4 +1,4 @@
-const url = 'http://api.email95.net';
+const url = 'https://api.email95.net';
 
 export const getEmailMailbox = () => {
     // Construct the full URL
