@@ -1,4 +1,4 @@
-const url = 'http://localhost:8080';
+const url = 'http://api.email95.net';
 
 export const postEmail = (emailData) => {
     // Construct the full URL

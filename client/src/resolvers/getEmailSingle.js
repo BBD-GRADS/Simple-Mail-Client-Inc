@@ -1,4 +1,4 @@
-const url = 'http://localhost:8080';
+const url = 'http://api.email95.net';
 
 export const getSingleEmail = async (s3EmailId) => {
     const fullUrl = `${url}/email/received-email?s3EmailId=${encodeURIComponent(s3EmailId)}`;

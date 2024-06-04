@@ -40,7 +40,7 @@ const Wrapper = styled.div`
 }`;
 
 export const ComposeEmailWindow = (props) => {
-  const [recipient, setRecipient] = useState('christo.kruger@bbd.co.za');
+  const [recipient, setRecipient] = useState('');
   const [subject, setSubject] = useState('');
   const [message, setMessage] = useState('');
 
