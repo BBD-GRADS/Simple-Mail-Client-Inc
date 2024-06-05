@@ -26,6 +26,7 @@ export const Home = (props) => {
         </nav>
         <main style={{ width: '100vw', display: 'flex', flexDirection: 'row', height: '90vh', top: '5vh', position: 'absolute' }}>
                 <YourMailWindow
+                  user={props.user}
                   onClick={(val) => {
                     setViewingEmail(val);
                   }

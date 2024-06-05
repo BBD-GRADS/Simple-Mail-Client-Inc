@@ -2,6 +2,7 @@ import {Frame, Separator, Hourglass} from 'react95';
 
 import React from 'react';
 import { useMailList } from '../hooks';
+import { Email } from './email';
 
 
 export const YourMailWindow = (props) => {
@@ -18,9 +19,9 @@ export const YourMailWindow = (props) => {
           <Frame
               variant='outside'
               shadow
-              style={{lineHeight: '1.5', width: '100%', height: '100%', padding: '5%'}}
+              style={{lineHeight: '1.5', width: '100%', height: '100%', padding: '5%', overflowY: 'auto'}}
           >
-            <h1>Your Mail</h1>
+            <h1>{props.user.username}'s Mail</h1>
             {loading && <Hourglass />}
 
             {!loading && (

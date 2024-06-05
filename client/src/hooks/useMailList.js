@@ -7,10 +7,10 @@ export const useMailList = (onClick) => {
   const [loading, setLoading] = useState(true); // Add loading state
 
   useEffect(() => {
-    const parseMails = async () => {
+    const parseMails = async (asPoll=false) => {
       try {
         // Set loading to true when fetching data
-        setLoading(true);
+        setLoading(!asPoll);
 
         // Assuming getEmailMailbox is a function that fetches the emails
         const mails = await getEmailMailbox();
@@ -34,7 +34,7 @@ export const useMailList = (onClick) => {
 
     parseMails();
 
-    const intervalId = setInterval(parseMails, 5000); // Fetch emails every 5 seconds
+    const intervalId = setInterval(parseMails, 5000, [true]); // Fetch emails every 5 seconds
 
     return () => clearInterval(intervalId); // Cleanup function to clear the interval
 
