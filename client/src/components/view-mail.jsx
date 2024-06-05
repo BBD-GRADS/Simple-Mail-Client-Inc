@@ -17,7 +17,7 @@ export const ViewMail = (props) => {
               style={{lineHeight: '1.5', width: '100%', minHeight: '100%', padding: '2%'}}
           >
              <GroupBox label={props.sender}>
-              <h2> {props.subject} </h2>
+              <h2 style={{fontSize: '16px', fontWeight: 'bold'}}> {props.subject} </h2>
               <Separator/>
               {
             loading && 

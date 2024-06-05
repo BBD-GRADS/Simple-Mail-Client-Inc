@@ -21,7 +21,7 @@ export const YourMailWindow = (props) => {
               shadow
               style={{lineHeight: '1.5', width: '100%', height: '100%', padding: '5%', overflowY: 'auto'}}
           >
-            <h1>{props.user.username}'s Mail</h1>
+            <h1 style={{fontSize: '18px', fontWeight: 'bold'}}>{props.user.username}'s Mail</h1>
             {loading && <Hourglass />}
 
             {!loading && (
