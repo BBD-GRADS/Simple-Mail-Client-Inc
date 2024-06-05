@@ -34,6 +34,10 @@ export const useMailList = (onClick) => {
 
     parseMails();
 
+    const intervalId = setInterval(parseMails, 5000); // Fetch emails every 5 seconds
+
+    return () => clearInterval(intervalId); // Cleanup function to clear the interval
+
     // You can add dependencies to rerun the effect when needed
     // For example, if getEmailMailbox or any state/prop used inside the effect changes
   }, []);
