@@ -1,3 +1,4 @@
+import { fetchAuthSession } from '@aws-amplify/auth';
 const url = 'https://api.email95.net';
 
 export const getSingleEmail = async (s3EmailId) => {
@@ -8,8 +9,11 @@ export const getSingleEmail = async (s3EmailId) => {
         return;
       }
   
-    const headers = {
-        'Authorization': `Bearer ${''}`
+      const headers =  {
+        'Authorization': `Bearer ${await fetchAuthSession().then(res=>{
+          let accessToken = res.tokens.accessToken.toString();
+          return accessToken;
+        })}`
       };
 
     try {

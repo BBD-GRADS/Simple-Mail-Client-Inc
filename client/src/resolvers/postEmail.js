@@ -1,12 +1,17 @@
+import { fetchAuthSession } from '@aws-amplify/auth';
 const url = 'https://api.email95.net';
 
-export const postEmail = (emailData) => {
+export const postEmail = async (emailData) => {
     // Construct the full URL
     const fullUrl = `${url}/email/send`;
   
     const headers = {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${''}`
+        
+        'Authorization': `Bearer ${await fetchAuthSession().then(res=>{
+            let accessToken = res.tokens.accessToken.toString();
+            return accessToken;
+        })}`
     };
     
     // Send POST request with headers and email data
