@@ -20,6 +20,7 @@ export const useMailList = (onClick) => {
             sender={mail.sender}
             subject={mail.subject}
             id={mail.s3EmailId}
+            receivedTime={mail.receivedTime}
             onClick={onClick}
           />
         ));

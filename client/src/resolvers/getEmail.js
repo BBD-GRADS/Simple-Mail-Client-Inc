@@ -24,7 +24,9 @@ export const getEmailMailbox = async () => {
           throw new Error('Network response was not ok');
         }
         // Parse response as JSON
-        return response.json();
+        const value = response.json();
+        console.log(value);
+        return value;
       })
       .then(data => {
         return data;

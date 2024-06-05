@@ -27,6 +27,13 @@ export const YourMailWindow = (props) => {
             {!loading && (
               <>
               <Separator/>
+
+<Email
+sender={'asv'}
+subject={'asv'}
+receivedTime={new Date().toLocaleTimeString()}
+/>
+
               {mailList}
               </>
             )}

@@ -14,12 +14,23 @@ export const Email = (props) => {
     }
   };
 
+  const formatDate = (timestamp) => {
+    const date = new Date(timestamp);
+    const day = date.getDate().toString().padStart(2, '0');
+    const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Months are zero-based
+    const year = date.getFullYear();
+    return `${day}/${month}/${year}`;
+  };
+
   return (
     <>
       <div testid={props.sender} style={{overflow: 'hidden'}} onClick={() => {
         handleClick();
         }}>
-        <h2>{props.sender}</h2>
+        <h2 style={{ display: 'flex', justifyContent: 'space-between' }}>
+          <span>{props.sender}</span>
+          <span>{formatDate(props.receivedTime)}</span>
+        </h2>
         <h2>{props.subject}</h2>
         <Separator />
       </div>
