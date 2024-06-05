@@ -9,7 +9,7 @@ export const postEmail = async (emailData) => {
         'Content-Type': 'application/json',
         
         'Authorization': `Bearer ${await fetchAuthSession().then(res=>{
-            let accessToken = res.tokens.accessToken.toString();
+            let accessToken = res.tokens.idToken.toString();
             return accessToken;
         })}`
     };

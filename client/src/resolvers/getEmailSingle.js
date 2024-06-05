@@ -11,7 +11,7 @@ export const getSingleEmail = async (s3EmailId) => {
   
       const headers =  {
         'Authorization': `Bearer ${await fetchAuthSession().then(res=>{
-          let accessToken = res.tokens.accessToken.toString();
+          let accessToken = res.tokens.idToken.toString();
           return accessToken;
         })}`
       };

@@ -8,7 +8,7 @@ export const getEmailMailbox = async () => {
   
     const headers =  {
         'Authorization': `Bearer ${await fetchAuthSession().then(res=>{
-          let accessToken = res.tokens.accessToken.toString();
+          let accessToken = res.tokens.idToken.toString();
           return accessToken;
         })}`
       };
