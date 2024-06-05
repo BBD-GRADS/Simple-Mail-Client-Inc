@@ -9,4 +9,16 @@ const awsconfig = {
   oauth: {},
 };
 
-export default awsconfig;
+const awsConfig = {
+  Auth: {
+    Cognito: {
+      mandatorySignIn: true,
+      region: process.env.REACT_APP_AWS_COGNITO_REGION,
+      userPoolId: process.env.REACT_APP_AWS_USER_POOLS_ID,
+      userPoolClientId: process.env.REACT_APP_AWS_USER_POOLS_WEB_CLIENT_ID,
+    },
+  },
+};
+ 
+export default awsConfig;
+
