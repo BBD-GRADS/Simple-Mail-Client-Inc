@@ -23,7 +23,7 @@ jobs:
       - name: Continuous Integration Flyway Clean Migrate
         run: >-
           docker run --rm
-          --volume ${{ github.workspace }}/Flyway/migrations:/flyway/sql:ro
+          --volume ${{ github.workspace }}/sql/migrations:/flyway/sql:ro
           "${{ env.DOCKER_IMAGE }}"
           -url="${{ secrets.DB_URL }}"
           -user="${{ secrets.DB_USERNAME }}"
