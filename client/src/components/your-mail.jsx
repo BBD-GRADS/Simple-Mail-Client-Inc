@@ -14,7 +14,7 @@ export const YourMailWindow = (props) => {
 
     return (
         <div
-        style={{width: '40%', height: '94%', padding: '2% 1% 2% 2%'}}
+        style={{width: '40%', height: '100%', padding: '2% 1% 2% 2%'}}
         >
           <Frame
               variant='outside'
