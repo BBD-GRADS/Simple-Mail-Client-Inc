@@ -67,7 +67,7 @@ export const ComposeEmailWindow = (props) => {
 
   return (
     <Wrapper>
-      <Window className='window' style={{ position: 'absolute', width: '60vw', left: '20vw', height: 'auto', top: '10vh' }}>
+      <Window className='window' style={{ position: 'absolute', width: '50vw', left: '20vw', height: 'auto', top: '10vh' }}>
         <WindowHeader className='window-title'>
           <span>New Mail</span>
           <Button onClick={() => props.setShowMail(false)}>

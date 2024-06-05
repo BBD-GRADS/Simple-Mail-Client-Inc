@@ -14,7 +14,7 @@ export const YourMailWindow = (props) => {
 
     return (
         <div
-        style={{width: '30%', height: '94%', padding: '2%'}}
+        style={{width: '40%', height: '94%', padding: '2% 1% 2% 2%'}}
         >
           <Frame
               variant='outside'
@@ -27,13 +27,6 @@ export const YourMailWindow = (props) => {
             {!loading && (
               <>
               <Separator/>
-
-<Email
-sender={'asv'}
-subject={'asv'}
-receivedTime={new Date().toLocaleTimeString()}
-/>
-
               {mailList}
               </>
             )}
