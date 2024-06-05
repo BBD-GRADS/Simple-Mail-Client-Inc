@@ -1,0 +1,31 @@
+name: Flyway migrate
+
+no:
+  push:
+    branches:
+      - main
+    paths:
+      - 'backend/**'
+  workflow_dispatch:
+
+env:
+  SQLFLUFF_DIALECT: postgres
+  DOCKER_IMAGE: redgate/flyway
+  SCHEMAS: public
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Continuous Integration Flyway Clean Migrate
+        run: >-
+          docker run --rm
+          --volume ${{ github.workspace }}/Flyway/migrations:/flyway/sql:ro
+          "${{ env.DOCKER_IMAGE }}"
+          -url="${{ secrets.DB_URL }}"
+          -user="${{ secrets.DB_USERNAME }}"
+          -password="${{ secrets.DB_PASSWORD }}"
+					info
