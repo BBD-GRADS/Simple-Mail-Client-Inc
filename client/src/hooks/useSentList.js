@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { getEmailSent } from '../resolvers'; // Import the function for fetching sent emails
 import { Email } from '../components/email';
 
-export const useSentMailList = (onClick) => { // Renamed to useSentMailList
+export const useSentMailList = (onClick, currentPage) => { // Renamed to useSentMailList
   const [mailList, setMailList] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -15,7 +15,7 @@ export const useSentMailList = (onClick) => { // Renamed to useSentMailList
       try {
         setLoading(!asPoll);
 
-        const sentMails = await getEmailSent(); // Changed function call to  const mails = await getEmailMailbox();
+        const sentMails = await getEmailSent(currentPage); // Changed function call to  const mails = await getEmailMailbox();
         setHasNext(sentMails?.hasNextPage);
         setHasPrev(sentMails?.hasPrevPage);
         const mailL = sentMails?.mails?.map(mail => (

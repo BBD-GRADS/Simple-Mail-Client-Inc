@@ -2,9 +2,9 @@ import { fetchAuthSession } from '@aws-amplify/auth';
 
 const baseUrl = 'https://api.email95.net';
 
-export const getEmailSent = async () => {
+export const getEmailSent = async (currentPage) => {
     // Construct the full URL
-    const fullUrl = `${baseUrl}/email/sent`;
+    const fullUrl = `${baseUrl}/email/sent?page=${currentPage}`;
   
     try {
         // Fetch authentication session and extract access token

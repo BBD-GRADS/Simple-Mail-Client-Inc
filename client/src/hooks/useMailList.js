@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { getEmailMailbox } from '../resolvers';
 import { Email } from '../components/email';
 
-export const useMailList = (onClick) => {
+export const useMailList = (onClick, currentPage) => {
   const [mailList, setMailList] = useState([]);
   const [loading, setLoading] = useState(true); // Add loading state
 
@@ -15,7 +15,7 @@ export const useMailList = (onClick) => {
         setLoading(!asPoll);
 
         // Assuming getEmailMailbox is a function that fetches the emails
-        const mails = await getEmailMailbox();
+        const mails = await getEmailMailbox(currentPage);
         setHasNext(mails.hasNextPage);
         setHasPrev(mails.hasPrevPage);
         const mailL = mails.emails.map(mail => (

@@ -22,8 +22,8 @@ export const YourMailWindow = (props) => {
   const [selected, setSelected] = React.useState(null);
   const [expanded, setExpanded] = React.useState([]);
 
-  const {mailList, loading, hasNext, hasPrev} = useMailList(props.onClick);
-  const {sentList, sentLoading, sentHasNext, sentHasPrev} = useSentMailList(props.onClick);
+  const {mailList, loading, hasNext, hasPrev} = useMailList(props.onClick, currentPage);
+  const {sentList, sentLoading, sentHasNext, sentHasPrev} = useSentMailList(props.onClick, currentPage);
 
     return (
         <div
@@ -48,11 +48,11 @@ export const YourMailWindow = (props) => {
                   <Progman44 variant={(activeTab === 0 ? hasPrev : sentHasPrev) ? "32x32_1" : "32x32_4"} />
                 </Button>
                 <Button onClick={() => {
-                  if ((activeTab === 1 ? hasNext : sentHasNext)) {
+                  if ((activeTab === 0 ? hasNext : sentHasNext)) {
                     setCurrentPage(currentPage + 1);
                   }
                 }}>
-                  <Progman45 variant={(activeTab === 1 ? hasNext : sentHasNext) ? "32x32_1" : "32x32_4"}/>
+                  <Progman45 variant={(activeTab === 0 ? hasNext : sentHasNext) ? "32x32_1" : "32x32_4"}/>
                 </Button>
               </div>
               <Separator/>

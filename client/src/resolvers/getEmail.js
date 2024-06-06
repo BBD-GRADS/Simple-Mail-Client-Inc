@@ -2,9 +2,9 @@ import { fetchAuthSession } from '@aws-amplify/auth';
 
 const url = 'https://api.email95.net';
 
-export const getEmailMailbox = async () => {
+export const getEmailMailbox = async (currentPage) => {
     // Construct the full URL
-    const fullUrl = `${url}/email/mailbox`;
+    const fullUrl = `${url}/email/mailbox?page=${currentPage}`;
   
     const headers =  {
         'Authorization': `Bearer ${await fetchAuthSession().then(res=>{
