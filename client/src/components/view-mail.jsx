@@ -8,7 +8,7 @@ export const ViewMail = (props) => {
     const {data, loading, error} = useSingleEmail(props.id, props.sent);
   
     const downloadAttachment = (attachment) => {
-      const blob = new Blob([attachment.content], { type: attachment.mimeType });
+      const blob = new Blob(['data:application/octet-stream;base64,' + attachment.content], { type: attachment.mimeType });
       const url = URL.createObjectURL(blob);
       const link = document.createElement('a');
       link.href = url;
