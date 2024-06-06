@@ -27,6 +27,7 @@ export const ViewMail = (props) => {
               shadow
               style={{lineHeight: '1.5', width: '100%', minHeight: '100%', padding: '2% 2% 1.5% 2%'}}
           >
+              {props.setViewingEmail && (<Button onClick={() =>  props.setViewingEmail(null)}>Back</Button>) }
              <GroupBox label={props.sender}style ={{overflowWrap: 'anywhere',minWidth: 'auto'}}>
               <h2 style={{fontSize: '16px', fontWeight: 'bold'}}> {props.subject} </h2>
               <Separator/>
@@ -37,7 +38,7 @@ export const ViewMail = (props) => {
             {
             !loading && 
             (<>
-              <div style={{ display: 'flex', flexWrap: 'wrap', width: '100%' }}>
+              <div style={{ display: 'flex', flexWrap: 'wrap', width: '100%', gap: '8px', padding: '12px'}}>
               {data?.attachments.map((attachment, index) => (
                 <div key={index}>
                   <Button onClick={() => downloadAttachment(attachment)}>{attachment.filename}</Button>
