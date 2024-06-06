@@ -87,6 +87,7 @@ export const Home = (props) => {
             : !viewingEmail ?
                (
                 <YourMailWindow
+                    large={windowDimensions.width >= 1000}
                     user={props.user}
                     onClick={(val) => {
                       setViewingEmail(val);
@@ -96,6 +97,7 @@ export const Home = (props) => {
                   />
                 ) : (
                   <ViewMail
+                    large={windowDimensions.width >= 1000}
                     setViewingEmail={setViewingEmail}
                     sent={activeTab === 1}
                     {...viewingEmail}
