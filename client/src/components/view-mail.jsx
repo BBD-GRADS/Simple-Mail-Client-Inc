@@ -38,7 +38,7 @@ export const ViewMail = (props) => {
             !loading && 
             (<>
               <p>{data?.text}</p>
-              {data.attachments.map((attachment, index) => (
+              {data?.attachments.map((attachment, index) => (
                 <div key={index}>
                   <Button onClick={() => downloadAttachment(attachment)}>{attachment.filename}</Button>
                 </div>
