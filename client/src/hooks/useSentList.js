@@ -18,7 +18,7 @@ export const useSentMailList = (onClick) => { // Renamed to useSentMailList
             sender={mail.sender}
             subject={mail.subject}
             id={mail.s3EmailId}
-            receivedTime={mail.receivedTime}
+            receivedTime={mail.sentTime}
             onClick={onClick}
           />
         ));

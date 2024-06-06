@@ -10,8 +10,29 @@ export const UserAvatar = (props) => {
         'mediumorchid',
         'tomato',
         'mediumspringgreen',
-        'slateblue'
-        // Add more colors if needed
+        'royalblue',
+        'orangered',
+        'forestgreen',
+        'cadetblue',
+        'indianred',
+        'goldenrod',
+        'steelblue',
+        'mediumvioletred',
+        'limegreen',
+        'darkslateblue',
+        'firebrick',
+        'deepskyblue',
+        'purple',
+        'saddlebrown',
+        'darkseagreen',
+        'dodgerblue',
+        'chocolate',
+        'lightsteelblue',
+        'crimson',
+        'mediumaquamarine',
+        'sienna',
+        'slateblue',
+        'olivedrab'
     ];
 
     const getSenderInitials = () => {
