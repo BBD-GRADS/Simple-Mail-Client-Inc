@@ -14,8 +14,15 @@ const useSingleEmail = (s3EmailId, sent=false) => {
         setLoading(true);
         const data = await getSingleEmail(s3EmailId, sent);
 
-        const message = await PostalMime.parse(data);
-
+        var message;
+        if (sent)
+        {
+          message = data;
+        }
+        else {
+          message = await PostalMime.parse(data);
+        } 
+        
         setEmailContent(message);
       } catch (error) {
         setError(error);

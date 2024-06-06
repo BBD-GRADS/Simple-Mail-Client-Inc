@@ -24,7 +24,13 @@ export const getSingleEmail = async (s3EmailId, sent=false) => {
       if (!response.ok) {
         throw new Error('Failed to fetch received email data');
       }
-      const data = await (await response.blob()).text();
+      var data;
+      if (sent) {
+        data = await response.json();
+      }
+      else {
+        data = await (await response.blob()).text();
+      }
       
       return data;
     } catch (error) {
