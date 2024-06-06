@@ -8,14 +8,27 @@ export const ViewMail = (props) => {
     const {data, loading, error} = useSingleEmail(props.id, props.sent);
   
     const downloadAttachment = (attachment) => {
-      const blob = new Blob(['data:application/octet-stream;base64,' + attachment.content], { type: attachment.mimeType });
-      const url = URL.createObjectURL(blob);
-      const link = document.createElement('a');
-      link.href = 'data:application/octet-stream;base64,' + attachment.content;
-      link.download = attachment.filename;
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
+    if (props.sent)
+      {
+        const blob = new Blob(['data:application/octet-stream;base64,' + attachment.content], { type: attachment.mimeType });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = 'data:application/octet-stream;base64,' + attachment.content;
+        link.download = attachment.filename;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      }
+      else {
+        const blob = new Blob([attachment.content], { type: attachment.mimeType });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = attachment.filename;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      }
     };
 
     return (
