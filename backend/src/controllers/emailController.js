@@ -6,18 +6,19 @@ const { awsConfig } = require("../config");
 
 async function getMailbox(req, res) {
   try {
-    const { amount } = req.query;
+    const { page, pageSize } = req.query;
     const email = req.user["cognito:username"];
     if (!email) {
       return res.status(400).json({ error: "Email is required" });
     }
 
-    const emails = await receivedEmailDAO.getEmails(
-      email,
-      amount ? parseInt(amount, 10) : undefined
-    );
+    const pageNumber = page ? parseInt(page, 10) : 1;
+    const size = pageSize ? parseInt(pageSize, 10) : 10;
 
-    return res.status(200).json(emails);
+    const { emails, hasPrevPage, hasNextPage } =
+      await receivedEmailDAO.getEmails(email, pageNumber, size);
+
+    return res.status(200).json({ emails, hasPrevPage, hasNextPage });
   } catch (error) {
     console.error("Error fetching emails:", error);
     return res.status(500).json({ error: "Internal Server Error" });
@@ -26,20 +27,21 @@ async function getMailbox(req, res) {
 
 async function getSent(req, res) {
   try {
-    const { amount } = req.query;
+    const { page, pageSize } = req.query;
     const email = req.user["cognito:username"];
     if (!email) {
       return res.status(400).json({ error: "Email is required" });
     }
 
-    const emails = await sentEmailDAO.getEmails(
-      email,
-      amount ? parseInt(amount, 10) : undefined
-    );
+    const pageNumber = page ? parseInt(page, 10) : 1;
+    const size = pageSize ? parseInt(pageSize, 10) : 10;
 
-    return res.status(200).json(emails);
+    const { emails, hasPrevPage, hasNextPage } =
+      await sentEmailDAO.getSentEmails(email, pageNumber, size);
+
+    return res.status(200).json({ emails, hasPrevPage, hasNextPage });
   } catch (error) {
-    console.error("Error fetching emails:", error);
+    console.error("Error fetching sent emails:", error);
     return res.status(500).json({ error: "Internal Server Error" });
   }
 }
