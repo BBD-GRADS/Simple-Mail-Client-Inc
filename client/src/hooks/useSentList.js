@@ -15,12 +15,12 @@ export const useSentMailList = (onClick, currentPage) => { // Renamed to useSent
       try {
         setLoading(!asPoll);
 
-        const sentMails = await getEmailSent(currentPage); // Changed function call to  const mails = await getEmailMailbox();
+        const sentMails = await getEmailSent(currentPage);
         setHasNext(sentMails?.hasNextPage);
         setHasPrev(sentMails?.hasPrevPage);
-        const mailL = sentMails?.mails?.map(mail => (
+        const mailL = sentMails?.emails?.map(mail => (
           <Email
-            key={sentMails?.mails?.indexOf(mail)}
+            key={sentMails?.emails?.indexOf(mail)}
             sender={mail.recipient}
             subject={mail.subject}
             id={mail.s3EmailId}
