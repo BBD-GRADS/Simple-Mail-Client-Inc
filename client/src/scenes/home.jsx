@@ -1,9 +1,10 @@
 import React from 'react';
-import { AppBar, Toolbar,Button} from 'react95';
+import { AppBar, Toolbar,Button, Separator} from 'react95';
 
 import { ComposeEmailWindow } from '../components/inbox-window';
 import { YourMailWindow } from '../components/your-mail';
 import { ViewMail } from '../components/view-mail';
+import { UserAvatar } from '../components/user-avatar';
 
 export const Home = (props) => {
 
@@ -15,9 +16,24 @@ export const Home = (props) => {
             <><nav>
             <AppBar style={{ zIndex: 3 }}>
                 <Toolbar style={{ justifyContent: 'space-between' }}>
-                    <Button
+                    <div style={{alignItems: 'center', display: 'flex'}}>
+                      <UserAvatar
+                          sender={props.user.username}
+                        />
+                        <h1 style={{fontWeight: 'bold', padding: '0 1vh'}}>
+                          {props.user.username}  
+                        </h1>
+                      <Separator orientation='vertical' size='43px' />
+                      <div
+                        style={{padding: '0 1vh'}}
+                      >
+                      <Button 
                         onClick={() => setShowMail(true)}
-                    >Compose Mail</Button>
+                      >  
+                        Compose Mail
+                      </Button>
+                      </div>
+                    </div>
                     <Button
                         onClick={() => {props.logoutFunction()}}
                     >Logout</Button>
