@@ -9,7 +9,7 @@ export const ViewMail = (props) => {
   
     return (
       <div
-        style={{width: '70%', minHeight: '100%', padding: '4.5% 2% 0% 1%'}}
+        style={{width: '70%', minHeight: '100%', padding: 'calc(34px + 2%) 2% 0% 1%'}}
         >
           <Frame
               variant='outside'
