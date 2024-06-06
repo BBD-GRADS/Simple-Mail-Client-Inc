@@ -75,7 +75,7 @@ export const Home = (props) => {
                       setViewingEmail(val);
                     } 
                   }
-                  setActiveTab={setActiveTab}
+                  setActiveTab={(value) => {setActiveTab(); setViewingEmail(null);}}
                   />
                   <ViewMail
                     //setViewingEmail={setViewingEmail}

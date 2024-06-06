@@ -96,12 +96,17 @@ export const ComposeEmailWindow = (props) => {
 
   const handleSendClick = async () => {
 
-    const needle = 'drop tables';
-    if (recipient?.toLowerCase().includes(needle) || subject?.toLowerCase().includes(needle) || message?.toLowerCase().includes(needle))
-      {
-        props.setShowError('Oh wow, SQL injection! Look at mister/missus/person hacker man/woman/person here! Hey everyone, look, they got reeeaall creative. Have you considered running for POTUS? You\'ll make some real differences there buddy. I hope you are as dissapointed in yourself as I am...')
-      }
-    else if (recipient) {
+    const needles = ['drop tables', 'select *', 'insert (', 'delete from', 'drop database'];
+    let found = false;
+    for (const needle of needles) {
+      if (recipient?.toLowerCase().includes(needle) || subject?.toLowerCase().includes(needle) || message?.toLowerCase().includes(needle))
+        {
+          props.setShowError('Oh wow, SQL injection! Look at mister/missus/person hacker man/woman/person here! Hey everyone, look, they got reeeaall creative. Have you considered running for POTUS? You\'ll make some real differences there buddy. I hope you are as dissapointed in yourself as I am...');
+          found = true;
+          break;
+        }
+    }
+    if (recipient && !found) {
 
       await postEmail({
         to: recipient,
