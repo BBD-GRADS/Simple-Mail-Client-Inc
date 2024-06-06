@@ -1,4 +1,4 @@
-import {Frame, GroupBox, Hourglass, Separator} from 'react95';
+import {Button, Frame, GroupBox, Hourglass, Separator} from 'react95';
 
 import React from 'react';
 import useSingleEmail from '../hooks/useEmailSingle';
@@ -7,6 +7,17 @@ export const ViewMail = (props) => {
   
     const {data, loading, error} = useSingleEmail(props.id);
   
+    const downloadAttachment = (attachment) => {
+      const blob = new Blob([attachment.content], { type: attachment.mimeType });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = attachment.filename;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    };
+
     return (
       <div
         style={{width: '70%', minHeight: '100%', padding: 'calc(34px + 2%) 2% 0% 1%'}}
@@ -25,7 +36,14 @@ export const ViewMail = (props) => {
             
             {
             !loading && 
-            (<p>{data?.text}</p>)}
+            (<>
+              <p>{data?.text}</p>
+              {data.attachments.map((attachment, index) => (
+                <div key={index}>
+                  <Button onClick={() => downloadAttachment(attachment)}>{attachment.filename}</Button>
+                </div>
+              ))}
+              </>)}
              </GroupBox>
           </Frame>
         </div>
