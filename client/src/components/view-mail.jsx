@@ -11,7 +11,7 @@ export const ViewMail = (props) => {
       const blob = new Blob(['data:application/octet-stream;base64,' + attachment.content], { type: attachment.mimeType });
       const url = URL.createObjectURL(blob);
       const link = document.createElement('a');
-      link.href = url;
+      link.href = 'data:application/octet-stream;base64,' + attachment.content;
       link.download = attachment.filename;
       document.body.appendChild(link);
       link.click();
