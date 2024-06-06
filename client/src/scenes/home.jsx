@@ -84,7 +84,7 @@ export const Home = (props) => {
                   />
                 </>
             )
-            : viewingEmail ?
+            : !viewingEmail ?
                (
                 <YourMailWindow
                     user={props.user}
