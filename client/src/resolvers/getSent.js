@@ -4,7 +4,7 @@ const baseUrl = 'https://api.email95.net';
 
 export const getEmailSent = async (currentPage) => {
     // Construct the full URL
-    const fullUrl = `${baseUrl}/email/sent?page=${currentPage}`;
+    const fullUrl = `${baseUrl}/email/sent?page=${currentPage}&pageSize=1000`;
   
     try {
         // Fetch authentication session and extract access token

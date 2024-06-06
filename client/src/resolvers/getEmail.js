@@ -4,7 +4,7 @@ const url = 'https://api.email95.net';
 
 export const getEmailMailbox = async (currentPage) => {
     // Construct the full URL
-    const fullUrl = `${url}/email/mailbox?page=${currentPage}`;
+    const fullUrl = `${url}/email/mailbox?page=${currentPage}&pageSize=1000`;
   
     const headers =  {
         'Authorization': `Bearer ${await fetchAuthSession().then(res=>{

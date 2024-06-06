@@ -45,7 +45,7 @@ export const useMailList = (onClick, currentPage) => {
 
     // You can add dependencies to rerun the effect when needed
     // For example, if getEmailMailbox or any state/prop used inside the effect changes
-  }, []);
+  }, [currentPage]);
 
   // Return loading along with mailList
   return { mailList, loading, hasNext, hasPrev};
