@@ -66,7 +66,7 @@ export const ComposeEmailWindow = (props) => {
       console.log(reader);
       const newAttachment = {
         filename: file.name,
-        content: reader.result
+        content: reader.result.split(',')[1]
       };
       setAttachments([...attachments, newAttachment]);
     };
