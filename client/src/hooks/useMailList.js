@@ -6,6 +6,8 @@ export const useMailList = (onClick) => {
   const [mailList, setMailList] = useState([]);
   const [loading, setLoading] = useState(true); // Add loading state
 
+  const [hasNext, setHasNext] = useState(false);
+  const [hasPrev, setHasPrev] = useState(false);
   useEffect(() => {
     const parseMails = async (asPoll=false) => {
       try {
@@ -14,7 +16,9 @@ export const useMailList = (onClick) => {
 
         // Assuming getEmailMailbox is a function that fetches the emails
         const mails = await getEmailMailbox();
-        const mailL = mails.map(mail => (
+        setHasNext(mails.hasNextPage);
+        setHasPrev(mails.hasPrevPage);
+        const mailL = mails.emails.map(mail => (
           <Email
             key={mails.indexOf(mail)} // Assuming each email has a unique id
             sender={mail.sender}
@@ -44,5 +48,5 @@ export const useMailList = (onClick) => {
   }, []);
 
   // Return loading along with mailList
-  return { mailList, loading };
+  return { mailList, loading, hasNext, hasPrev};
 };

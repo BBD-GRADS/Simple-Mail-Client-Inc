@@ -1,5 +1,5 @@
-import {Frame, Separator, Hourglass, Tabs, Tab, TabBody} from 'react95';
-
+import {Frame, Separator, Hourglass, Tabs, Tab, TabBody, Button} from 'react95';
+import {Progman44, Progman45} from '@react95/icons';
 import React from 'react';
 import { useMailList } from '../hooks';
 import { Email } from './email';
@@ -10,8 +10,11 @@ export const YourMailWindow = (props) => {
 
   const [activeTab, setActiveTab] = React.useState(0);
 
+  const [currentPage, setCurrentPage] = React.useState(1);
+
   const handleChange = (value) => {
     setActiveTab(value);
+    setCurrentPage(1);
     props.setActiveTab(value);
   };
 
@@ -19,7 +22,7 @@ export const YourMailWindow = (props) => {
   const [selected, setSelected] = React.useState(null);
   const [expanded, setExpanded] = React.useState([]);
 
-  const {mailList, loading} = useMailList(props.onClick);
+  const {mailList, loading, hasNext, hasPrev} = useMailList(props.onClick);
   const {sentList, sentLoading} = useSentMailList(props.onClick);
 
     return (
@@ -36,6 +39,22 @@ export const YourMailWindow = (props) => {
 
             {!loading && (
               <>
+              <div style={{display: 'flex', justifyContent: 'space-between'}}>
+                <Button onClick={() => {
+                  if (hasPrev) {
+                    setCurrentPage(currentPage - 1);
+                  }
+                }}>
+                  <Progman44 variant={hasPrev ? "32x32_1" : "32x32_4"} />
+                </Button>
+                <Button onClick={() => {
+                  if (hasNext) {
+                    setCurrentPage(currentPage + 1);
+                  }
+                }}>
+                  <Progman45 variant={hasNext ? "32x32_1" : "32x32_4"}/>
+                </Button>
+              </div>
               <Separator/>
         
               {activeTab === 0 && mailList}
