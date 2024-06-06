@@ -36,19 +36,7 @@ export const YourMailWindow = (props) => {
             {!loading && (
               <>
               <Separator/>
-              <Email
-                sender={'christo.kruger@gmail.com'}
-                subject={'asdasdasd'}
-                /> <Email
-                sender={'cadsadsasduger@gmail.com'}
-                subject={'asdasdasd'}
-                /> <Email
-                sender={'christsdajsdasjder@gmail.com'}
-                subject={'asdasdasd'}
-                /> <Email
-                sender={'christo.iasbdiasbdji@gmail.com'}
-                subject={'asdasdasd'}
-                />
+        
               {activeTab === 0 && mailList}
 
               {activeTab === 1 && sentList}
