@@ -15,7 +15,7 @@ export const useSentMailList = (onClick) => { // Renamed to useSentMailList
         const mailL = sentMails.map(mail => (
           <Email
             key={sentMails.indexOf(mail)}
-            sender={mail.sender}
+            sender={mail.recipient}
             subject={mail.subject}
             id={mail.s3EmailId}
             receivedTime={mail.sentTime}
