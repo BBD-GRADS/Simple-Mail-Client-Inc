@@ -162,7 +162,8 @@ async function sendEmail(req, res) {
       attachments &&
       attachments.map((attachment) => ({
         filename: attachment.filename,
-        content: attachment.content, //base64
+        content: attachment.content,
+        encoding: "base64", //base64
       })),
   };
 
