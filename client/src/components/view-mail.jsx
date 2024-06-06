@@ -5,7 +5,7 @@ import useSingleEmail from '../hooks/useEmailSingle';
 
 export const ViewMail = (props) => {
   
-    const {data, loading, error} = useSingleEmail(props.id);
+    const {data, loading, error} = useSingleEmail(props.id, props.sent);
   
     const downloadAttachment = (attachment) => {
       const blob = new Blob([attachment.content], { type: attachment.mimeType });
@@ -37,12 +37,15 @@ export const ViewMail = (props) => {
             {
             !loading && 
             (<>
-              <p>{data?.text}</p>
+              <div style={{ display: 'flex', flexWrap: 'wrap', width: '100%' }}>
               {data?.attachments.map((attachment, index) => (
                 <div key={index}>
                   <Button onClick={() => downloadAttachment(attachment)}>{attachment.filename}</Button>
                 </div>
               ))}
+              </div>
+              <p>{data?.text}</p>
+              
               </>)}
              </GroupBox>
           </Frame>

@@ -12,6 +12,7 @@ export const YourMailWindow = (props) => {
 
   const handleChange = (value) => {
     setActiveTab(value);
+    props.setActiveTab(value);
   };
 
 

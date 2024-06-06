@@ -13,6 +13,9 @@ export const Home = (props) => {
     const [showError, setShowError] = React.useState('');
 
     const [viewingEmail, setViewingEmail] = React.useState(null);
+
+    const [activeTab, setActiveTab] = React.useState(0);
+    
     
     return (
             <><nav>
@@ -47,10 +50,12 @@ export const Home = (props) => {
                   user={props.user}
                   onClick={(val) => {
                     setViewingEmail(val);
-                  }
+                  } 
                 }
+                setActiveTab={setActiveTab}
                 />
                 <ViewMail
+                  sent={activeTab == 1}
                   {...viewingEmail}
                 />
         </main>
