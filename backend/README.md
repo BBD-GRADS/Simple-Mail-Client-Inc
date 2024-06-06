@@ -1,2 +1,2 @@
-# SpEYEder
-See what the web sees. Your one-stop visibility hub.
+# Backend
+where the email95 API lives
