@@ -6,15 +6,21 @@ export const useSentMailList = (onClick) => { // Renamed to useSentMailList
   const [mailList, setMailList] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  
+  const [hasNext, setHasNext] = useState(false);
+  const [hasPrev, setHasPrev] = useState(false);
+
   useEffect(() => {
     const parseSentMails = async (asPoll=false) => { // Renamed function and parameter
       try {
         setLoading(!asPoll);
 
-        const sentMails = await getEmailSent(); // Changed function call to fetch sent emails
-        const mailL = sentMails.map(mail => (
+        const sentMails = await getEmailSent(); // Changed function call to  const mails = await getEmailMailbox();
+        setHasNext(sentMails.hasNextPage);
+        setHasPrev(sentMails.hasPrevPage);
+        const mailL = sentMails.mails.map(mail => (
           <Email
-            key={sentMails.indexOf(mail)}
+            key={sentMails.mails.indexOf(mail)}
             sender={mail.recipient}
             subject={mail.subject}
             id={mail.s3EmailId}
@@ -37,5 +43,7 @@ export const useSentMailList = (onClick) => { // Renamed to useSentMailList
     return () => clearInterval(intervalId);
   }, []);
 
-  return { sentList: mailList, sentLoading: loading };
+  return { sentList: mailList, sentLoading: loading, sentHasNext: hasNext, sentHasPrev: hasPrev};
+  return { mailList, loading, hasNext, hasPrev};
+
 };

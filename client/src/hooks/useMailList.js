@@ -20,7 +20,7 @@ export const useMailList = (onClick) => {
         setHasPrev(mails.hasPrevPage);
         const mailL = mails.emails.map(mail => (
           <Email
-            key={mails.indexOf(mail)} // Assuming each email has a unique id
+            key={mails.emails.indexOf(mail)} // Assuming each email has a unique id
             sender={mail.sender}
             subject={mail.subject}
             id={mail.s3EmailId}
