@@ -1,5 +1,6 @@
 import React from 'react';
 import { Separator } from 'react95';
+import { UserAvatar } from './user-avatar';
 
 export const Email = (props) => {
   const handleClick = () => {
@@ -24,7 +25,11 @@ export const Email = (props) => {
 
   return (
     <>
-      <div testid={props.sender} style={{overflow: 'hidden'}} onClick={() => {
+    <div style={{display: 'flex', width: '100%', padding: '1vh 0px'}}>
+      <UserAvatar
+        sender={props.sender}
+      />
+      <div testid={props.sender} style={{overflow: 'hidden', flex: '1', margin: '0 0 0 1vh'}} onClick={() => {
         handleClick();
         }}>
         <h2 style={{ display: 'flex', justifyContent: 'space-between' }}>
@@ -32,8 +37,9 @@ export const Email = (props) => {
           <span>{formatDate(props.receivedTime)}</span>
         </h2>
         <h2>{props.subject}</h2>
-        <Separator />
       </div>
+    </div>
+    <Separator />
     </>
   );
 };

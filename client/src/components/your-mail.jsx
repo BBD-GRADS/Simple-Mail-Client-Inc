@@ -27,6 +27,10 @@ export const YourMailWindow = (props) => {
             {!loading && (
               <>
               <Separator/>
+              <Email
+                sender={'christo.kruger@gmail.com'}
+                subject={'asdasdasd'}
+                />
               {mailList}
               </>
             )}
