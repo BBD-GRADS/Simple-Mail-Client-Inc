@@ -9,12 +9,12 @@ export const ViewMail = (props) => {
   
     return (
       <div
-        style={{width: '70%', minHeight: '94%', padding: '2% 2% 2% 1%'}}
+        style={{width: '70%', minHeight: '100%', padding: '4.5% 2% 0% 1%'}}
         >
           <Frame
               variant='outside'
               shadow
-              style={{lineHeight: '1.5', width: '100%', minHeight: '100%', padding: '2%'}}
+              style={{lineHeight: '1.5', width: '100%', minHeight: '100%', padding: '2% 2% 1.5% 2%'}}
           >
              <GroupBox label={props.sender}style ={{overflowWrap: 'anywhere',minWidth: 'auto'}}>
               <h2 style={{fontSize: '16px', fontWeight: 'bold'}}> {props.subject} </h2>
