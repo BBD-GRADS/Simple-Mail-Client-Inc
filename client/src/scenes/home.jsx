@@ -1,14 +1,16 @@
 import React from 'react';
 import { AppBar, Toolbar,Button, Separator} from 'react95';
 
-import { ComposeEmailWindow } from '../components/inbox-window';
+import { ComposeEmailWindow } from '../components/compose-window';
 import { YourMailWindow } from '../components/your-mail';
 import { ViewMail } from '../components/view-mail';
 import { UserAvatar } from '../components/user-avatar';
+import { ErrorWindow } from '../components/error-window';
 
 export const Home = (props) => {
 
     const [showMail, setShowMail] = React.useState(false);
+    const [showError, setShowError] = React.useState('');
 
     const [viewingEmail, setViewingEmail] = React.useState(null);
     
@@ -54,7 +56,15 @@ export const Home = (props) => {
         </main>
         {showMail && (
         <ComposeEmailWindow
+            setShowError={setShowError}
             setShowMail={setShowMail}
+        />
+        )}
+
+        {showError && (
+        <ErrorWindow
+            message={showError}
+            setShowError={setShowError}
         />
         )}
         </>        
