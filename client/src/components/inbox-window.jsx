@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Toolbar, Frame, Button, Window, WindowHeader, WindowContent, TextInput } from 'react95';
+import { Toolbar, Frame, Button, Window, WindowHeader, WindowContent, Tabs, Tab, TextInput } from 'react95';
 import { styled } from 'styled-components';
 import { postEmail } from '../resolvers';
 
