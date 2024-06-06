@@ -12,6 +12,7 @@ export const YourMailWindow = (props) => {
 
   const handleChange = (value) => {
     setActiveTab(value);
+    props.setActiveTab(value);
   };
 
 
@@ -23,7 +24,7 @@ export const YourMailWindow = (props) => {
 
     return (
         <div
-        style={{width: '40%', height: '100%', padding: '2% 1% 2% 2%'}}
+        style={{width: props.large ? '100%' : '40%', height: '100%', padding: '2% 1% 2% 2%'}}
         >
           <Tabs value={activeTab} onChange={handleChange}>
             <Tab value={0}>Inbox</Tab>
